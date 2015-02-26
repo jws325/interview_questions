@@ -73,3 +73,38 @@ def test_ll():
         and second.get_next().get_val() == 1
         and first.get_next() is None
     )
+
+
+#  3. create a function that returns the nth zero-indexed element of the fibonacci sequence
+
+def test_fibonacci():
+
+    def fibonacci(n):
+        if n < 0:
+            raise ValueError('Negative indices are invalid')
+        elif n < 2:
+            return n
+        else:
+            return fibonacci(n-1) + fibonacci(n-2)
+
+    # test
+
+    vals_to_assert = (
+        (0, 0),
+        (1, 1),
+        (2, 1),
+        (3, 2),
+        (4, 3),
+        (5, 5),
+        (6, 8),
+    )
+
+    for n, return_val in vals_to_assert:
+        assert fibonacci(n) == return_val
+
+    try:
+        fibonacci(-1)
+    except ValueError:
+        pass
+    else:
+        raise RuntimeError('The fibonacci function failed to throw an error for the negative index')
