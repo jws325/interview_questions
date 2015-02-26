@@ -6,7 +6,6 @@
 def test_reverse():
 
     def reverse(a):
-
         for index, value in enumerate(a):
             if index >= len(a) / 2:
                 break
@@ -76,8 +75,19 @@ def test_ll():
 
 
 #  3. create a function that returns the nth zero-indexed element of the fibonacci sequence
+#     use dynamic programming to memoize the sub problems
 
 def test_fibonacci():
+
+    memoized_vals = {0: 0, 1: 1}
+
+    def get_memoized(n):
+        if n in memoized_vals:
+            return memoized_vals[n]
+        else:
+            return_val = fibonacci(n)
+            memoized_vals[n] = return_val
+            return return_val
 
     def fibonacci(n):
         if n < 0:
@@ -85,7 +95,7 @@ def test_fibonacci():
         elif n < 2:
             return n
         else:
-            return fibonacci(n-1) + fibonacci(n-2)
+            return get_memoized(n-1) + get_memoized(n-2)
 
     # test
 
@@ -108,3 +118,5 @@ def test_fibonacci():
         pass
     else:
         raise RuntimeError('The fibonacci function failed to throw an error for the negative index')
+
+test_fibonacci()
